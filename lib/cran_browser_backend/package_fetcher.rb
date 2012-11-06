@@ -26,6 +26,8 @@ module CranBrowserBackend
 
       def read_plain_file_content
         @plain_text_data = File.read(SANDBOX + '/' + @data[:directory_name] + '/' + DESCRIPTION_FILE_NAME)
+        require 'iconv'
+        @plain_text_data = Iconv.conv('ASCII//IGNORE', 'UTF8', @plain_text_data)
       end
 
       # is it safe?
