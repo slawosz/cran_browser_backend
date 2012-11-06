@@ -1,6 +1,6 @@
 require "cran_browser_backend/version"
+require "cran_browser_backend/fetcher"
 require "cran_browser_backend/list_fetcher"
-require "cran_browser_backend/list_parser"
 require "cran_browser_backend/packages_fetcher_resolver"
 require "cran_browser_backend/packages_fetcher"
 require "cran_browser_backend/package_fetcher"

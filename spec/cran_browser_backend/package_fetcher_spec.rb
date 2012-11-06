@@ -14,6 +14,7 @@ describe CranBrowserBackend::PackageFetcher do
   end
 
   let(:sandbox_path) { CranBrowserBackend::ROOT + '/spec/sandbox' }
+
   before do
     stub_const("CranBrowserBackend::SANDBOX", sandbox_path)
     `cp #{CranBrowserBackend::ROOT}/spec/fixtures/aftgee_0.3-7.tar.gz #{sandbox_path}`

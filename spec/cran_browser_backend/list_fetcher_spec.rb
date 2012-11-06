@@ -12,7 +12,7 @@ describe CranBrowserBackend::ListFetcher do
 
   it 'should download package and get package dcf' do
     CranBrowserBackend::Downloader.should_receive(:get).with(url)
-    CranBrowserBackend::ListParser.should_receive(:parse).with(File.read(CranBrowserBackend::ROOT + '/spec/fixtures/PACKAGES'))
+    Dcf.should_receive(:parse).with(File.read(CranBrowserBackend::ROOT + '/spec/fixtures/PACKAGES'))
 
     CranBrowserBackend::ListFetcher.fetch
 
