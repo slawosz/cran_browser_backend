@@ -1,11 +1,12 @@
+# encoding: UTF-8
 module CranBrowserBackend
-  class ListFetcher
-    URL = 'http://cran.r-project.org/src/contrib/PACKAGES.gz'
-    FILE = 'PACKAGES'
-    ZIPPED_FILE = FILE + '.gz'
+  class PackageFetcher
+    DESCRIPTION_FILE_NAME = 'DESCRIPTION'
+
 
     class << self
-      def fetch
+      def fetch(data)
+        @data = data
         get_file
         extract_file
         read_plain_file_content
@@ -16,15 +17,15 @@ module CranBrowserBackend
       private
 
       def get_file
-        @packages = Downloader.get(URL)
+        Downloader.get(@data[:url])
       end
 
       def extract_file
-        `gunzip -c #{SANDBOX}/#{ZIPPED_FILE} > #{SANDBOX}/#{FILE}`
+        `tar -xzf #{SANDBOX}/#{@data[:file_name]} -C #{SANDBOX}`
       end
 
       def read_plain_file_content
-        @plain_text_data = File.read(SANDBOX + '/' + FILE)
+        @plain_text_data = File.read(SANDBOX + '/' + @data[:directory_name] + '/' + DESCRIPTION_FILE_NAME)
       end
 
       # is it safe?
@@ -33,7 +34,7 @@ module CranBrowserBackend
       end
 
       def parse_file
-        ListParser.parse(@plain_text_data)
+        Dcf.parse(@plain_text_data)
       end
     end
 

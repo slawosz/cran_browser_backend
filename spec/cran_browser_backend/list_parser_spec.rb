@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe CranBrowserBackend::ListParser do
-  let(:path) do
-    CranBrowserBackend::ROOT + '/spec/fixtures/PACKAGES'
+  let(:plain_text) do
+    File.read(CranBrowserBackend::ROOT + '/spec/fixtures/PACKAGES')
   end
 
   let(:parsed) do
@@ -10,7 +10,7 @@ describe CranBrowserBackend::ListParser do
   end
 
   it 'should get package dcf' do
-    CranBrowserBackend::ListParser.parse(path).should == parsed
+    CranBrowserBackend::ListParser.parse(plain_text).should == parsed
   end
 
 end

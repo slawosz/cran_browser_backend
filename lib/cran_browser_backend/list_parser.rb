@@ -2,9 +2,8 @@ require 'dcf'
 
 module CranBrowserBackend
   class ListParser
-    def self.parse(path)
-      file = File.read(path)
-      Dcf.parse(file)
+    def self.parse(data)
+      Dcf.parse(data)
     end
   end
 end
