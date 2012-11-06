@@ -1,5 +1,6 @@
 require 'iconv'
 require 'dcf'
+require 'fileutils'
 
 module CranBrowserBackend
   class Fetcher
@@ -24,7 +25,7 @@ module CranBrowserBackend
       end
 
       def erase_sandbox
-        `rm -rf #{SANDBOX}/*`
+        FileUtils.rm_rf(Dir.glob(SANDBOX + '/*'))
       end
 
       def parse_file
