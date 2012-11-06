@@ -16,16 +16,18 @@ module CranBrowserBackend
         @data[:url]
       end
 
-      def file_to_parse
-        SANDBOX + '/' + @data[:directory_name] + '/' + DESCRIPTION_FILE_NAME
-      end
-
       def file_to_extract
-        SANDBOX + '/' + @data[:file_name]
+        File.expand_path(@data[:file_name], SANDBOX)
       end
 
-      def extract_file
-        `tar -xzf #{file_to_extract} -C #{SANDBOX}`
+      def read_file
+        gunzipped = Zlib::GzipReader.new(File.new(file_to_extract))
+        tar_reader = Gem::Package::TarReader.new(gunzipped)
+        tar_reader.extend Enumerable
+
+        @file_content = tar_reader.find do |entry|
+          File.basename(entry.full_name) == DESCRIPTION_FILE_NAME
+        end.read
       end
     end
 

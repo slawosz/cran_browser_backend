@@ -9,6 +9,6 @@ require "cran_browser_backend/runner"
 require "cran_browser_backend/packages_updater"
 
 module CranBrowserBackend
-  ROOT = `pwd`.chop
-  SANDBOX = ROOT + '/sandbox'
+  ROOT = File.expand_path('../', File.dirname(__FILE__))
+  SANDBOX = File.expand_path('sandbox', ROOT)
 end

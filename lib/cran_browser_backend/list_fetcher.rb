@@ -8,12 +8,8 @@ module CranBrowserBackend
 
       private
 
-      def file_to_parse
-        SANDBOX + '/' + FILE
-      end
-
-      def extract_file
-        `gunzip -c #{SANDBOX}/#{ZIPPED_FILE} > #{file_to_parse}`
+      def read_file
+        @file_content = Zlib::GzipReader.new(File.new(File.expand_path(ZIPPED_FILE, SANDBOX))).read
       end
 
       def url

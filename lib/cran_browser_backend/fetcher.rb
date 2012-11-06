@@ -7,8 +7,8 @@ module CranBrowserBackend
     class << self
       def fetch
         get_file
-        extract_file
-        read_plain_file_content
+        read_file
+        ignore_wrong_encoding
         erase_sandbox
         parse_file
       end
@@ -19,9 +19,8 @@ module CranBrowserBackend
         @packages = Downloader.get(url)
       end
 
-      def read_plain_file_content
-        @plain_text_data = File.read(file_to_parse)
-        @plain_text_data = Iconv.conv('ASCII//IGNORE', 'UTF8', @plain_text_data)
+      def ignore_wrong_encoding
+        @file_content = Iconv.conv('ASCII//IGNORE', 'UTF8', @file_content)
       end
 
       def erase_sandbox
@@ -29,7 +28,7 @@ module CranBrowserBackend
       end
 
       def parse_file
-        Dcf.parse(@plain_text_data)
+        Dcf.parse(@file_content)
       end
     end
 
