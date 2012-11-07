@@ -8,6 +8,8 @@ InstalledFiles
 _yardoc
 coverage
 doc/
+spec/test.sqlite3
+doc/
 lib/bundler/man
 pkg
 rdoc
